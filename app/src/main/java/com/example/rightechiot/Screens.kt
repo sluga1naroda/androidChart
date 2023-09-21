@@ -1,8 +1,11 @@
 package com.example.rightechiot
 
+import com.example.rightechiot.dashboard.DashboardFragment
 import com.github.terrakok.cicerone.androidx.FragmentScreen
 
 object Screens {
-    fun dashboard() = FragmentScreen { DashboardsFragment() }
-    fun login() = FragmentScreen {LoginFragment() }
+    fun dashboards() = FragmentScreen { DashboardsFragment() }
+    fun login() = FragmentScreen { LoginFragment() }
+
+    fun dashboard() = FragmentScreen { DashboardFragment() }
 }

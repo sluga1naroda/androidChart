@@ -1,12 +1,10 @@
 package com.example.rightechiot
 
-import android.R
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.rightechiot.databinding.FragmentLoginBinding
 import retrofit2.Call
@@ -40,7 +38,7 @@ class LoginFragment : Fragment() {
                             else {
                                 AuthService().saveToken(response.body()!!.token)
                                 Toast.makeText(requireContext(), "Token is not empty!", Toast.LENGTH_SHORT).show();
-                                router.newRootScreen(Screens.dashboard())
+                                router.newRootScreen(Screens.dashboards())
 
                             }
                         }
