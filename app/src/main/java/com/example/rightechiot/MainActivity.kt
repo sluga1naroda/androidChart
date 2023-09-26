@@ -1,24 +1,12 @@
 package com.example.rightechiot
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Gravity
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
-import retrofit2.Call
-import retrofit2.Response
-import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.core.view.GravityCompat
-import androidx.drawerlayout.widget.DrawerLayout
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import com.example.rightechiot.databinding.ActivityMainBinding
 import com.github.terrakok.cicerone.androidx.AppNavigator
 import com.google.android.material.navigation.NavigationView
-import javax.security.auth.callback.Callback
 
 class MainActivity : FragmentActivity() {
     lateinit var binding : ActivityMainBinding
@@ -59,7 +47,7 @@ class MainActivity : FragmentActivity() {
                     authService.logout()
                 }
                 R.id.nav_dashboards -> {
-                    router.newRootScreen(Screens.dashboard())
+                    router.newRootScreen(Screens.dashboards())
                 }
                 R.id.nav_settings -> {
                     router.newRootScreen(Screens.login())
@@ -71,7 +59,7 @@ class MainActivity : FragmentActivity() {
 
         if(authService.isAuth) {
             showHideNavView(navView)
-            router.newRootScreen(Screens.dashboard())
+            router.newRootScreen(Screens.chooseServer())
         } else {
             showHideNavView(navView)
             router.newRootScreen(Screens.login())

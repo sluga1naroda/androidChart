@@ -15,4 +15,9 @@
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
+    
+    <string name="server_app">app.rightech.io</string>
+    <string name="server_sandbox">sandbox.rightech.io</string>
+    <string name="server_dev">dev.rightech.io</string>
+    <string name="server_custom">Custom</string>
 </resources>
