@@ -22,13 +22,21 @@ import com.github.mikephil.charting.utils.ColorTemplate
 
 
 class DashboardAdapter(
-    private val dashboards: List<PieData>,
+    dashboards: List<PieData>,
     private val onPieChartListened: (Entry) -> Unit
 ) : RecyclerView.Adapter<DashboardAdapter.DashboardViewHolder>() {
 
-    init {
+    var charts = dashboards
 
+    init {
         Unit
+    }
+
+    fun addChart(pieData: PieData) {
+        charts = charts.toMutableList().apply {
+            add(pieData)
+        }
+        notifyItemInserted(charts.lastIndex)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DashboardViewHolder {
@@ -38,11 +46,11 @@ class DashboardAdapter(
     }
 
     override fun getItemCount(): Int {
-        return dashboards.size
+        return charts.size
     }
 
     override fun onBindViewHolder(holder: DashboardViewHolder, position: Int) {
-        holder.onBind(dashboards[position])
+        holder.onBind(charts[position])
     }
 
     inner class DashboardViewHolder(itemView: View) :
@@ -95,14 +103,14 @@ class DashboardAdapter(
             // chart.spin(2000, 0, 360);
 
             // chart.spin(2000, 0, 360);
-            val l: Legend = chart.legend
-            l.verticalAlignment = Legend.LegendVerticalAlignment.TOP
-            l.horizontalAlignment = Legend.LegendHorizontalAlignment.RIGHT
-            l.orientation = Legend.LegendOrientation.VERTICAL
-            l.setDrawInside(false)
-            l.xEntrySpace = 7f
-            l.yEntrySpace = 0f
-            l.yOffset = 0f
+//            val l: Legend = chart.legend
+//            l.verticalAlignment = Legend.LegendVerticalAlignment.TOP
+//            l.horizontalAlignment = Legend.LegendHorizontalAlignment.RIGHT
+//            l.orientation = Legend.LegendOrientation.VERTICAL
+//            l.setDrawInside(false)
+//            l.xEntrySpace = 7f
+//            l.yEntrySpace = 0f
+//            l.yOffset = 0f
 
             // entry label styling
 
@@ -113,13 +121,8 @@ class DashboardAdapter(
     }
 
     private fun generateCenterSpannableText(): SpannableString {
-        val s = SpannableString("MPAndroidChart\ndeveloped by Philipp Jahoda")
-        s.setSpan(RelativeSizeSpan(1.7f), 0, 14, 0)
-        s.setSpan(StyleSpan(Typeface.NORMAL), 14, s.length - 15, 0)
-        s.setSpan(ForegroundColorSpan(Color.GRAY), 14, s.length - 15, 0)
-        s.setSpan(RelativeSizeSpan(.8f), 14, s.length - 15, 0)
-        s.setSpan(StyleSpan(Typeface.ITALIC), s.length - 14, s.length, 0)
-        s.setSpan(ForegroundColorSpan(ColorTemplate.getHoloBlue()), s.length - 14, s.length, 0)
+        val s = SpannableString("График топлива")
+        s.setSpan(ForegroundColorSpan(ColorTemplate.getHoloBlue()), 0, s.length, 0)
         return s
     }
 

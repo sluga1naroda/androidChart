@@ -23,9 +23,10 @@ import kotlin.random.Random
 class DashboardFragment : Fragment(com.example.rightechiot.R.layout.fragment_dashboard) {
 
     lateinit var binding: FragmentDashboardBinding
-    private val dashboardAdapter = DashboardAdapter(generateData()) { entry ->
-
-    }
+    private val dashboardAdapter =
+        DashboardAdapter(listOf(generateData(), generateData())) { entry ->
+            //нажатие на пай
+        }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,15 +40,20 @@ class DashboardFragment : Fragment(com.example.rightechiot.R.layout.fragment_das
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val manager = LinearLayoutManager(requireContext())
         binding.dashboardsPies.apply {
-            layoutManager = LinearLayoutManager(requireContext())
+            layoutManager = manager
             adapter = this@DashboardFragment.dashboardAdapter
+        }
 
+        binding.addPieButton.setOnClickListener {
+            dashboardAdapter.addChart(generateData())
+            manager.scrollToPosition(dashboardAdapter.itemCount - 1)
         }
     }
 
 
-    private fun generateData() = Array(Random.nextInt(1, 5)) {
+    private fun generateData(): PieData {
         val entries: ArrayList<PieEntry> = ArrayList()
         val count = 10
 
@@ -86,7 +92,6 @@ class DashboardFragment : Fragment(com.example.rightechiot.R.layout.fragment_das
         colors.add(ColorTemplate.getHoloBlue())
 
         dataSet.colors = colors
-        PieData(dataSet)
-    }.toList()
-
+        return PieData(dataSet)
+    }
 }

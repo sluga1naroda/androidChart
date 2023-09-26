@@ -16,7 +16,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:fontFamily="@font/open_sans"
-            android:text="Список дашбордов"
+            android:text="Dashboard - 1"
             android:textAllCaps="false"
             android:textColor="@color/black"
             android:textSize="16sp"
@@ -33,7 +33,7 @@
             tools:listitem="@layout/dashboard_menu"
             />
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/add_dashboard_button"
+            android:id="@+id/add_pie_button"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="24dp"

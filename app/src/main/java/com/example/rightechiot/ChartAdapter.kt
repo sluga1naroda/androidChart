@@ -7,20 +7,24 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class ChartAdapter() : RecyclerView.Adapter<ChartAdapter.DashBoardViewHolder>(){
-    private var dashBoardList : List<DashBoardDescription> = emptyList()
+class ChartAdapter(
+    private val onItemClicked: () -> Unit
+) : RecyclerView.Adapter<ChartAdapter.DashBoardViewHolder>() {
+    private var dashBoardList: List<DashBoardDescription> = emptyList()
 
-    fun setItems(items:List<DashBoardDescription>){
+    fun setItems(items: List<DashBoardDescription>) {
         dashBoardList = items
         notifyDataSetChanged()
     }
 
-    fun addItem(item:DashBoardDescription){
+    fun addItem(item: DashBoardDescription) {
         dashBoardList = dashBoardList.toMutableList().apply { add(item) }
-        notifyItemInserted(dashBoardList.size-1)
+        notifyItemInserted(dashBoardList.size - 1)
     }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DashBoardViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.dashboard_menu,parent,false)
+        val itemView =
+            LayoutInflater.from(parent.context).inflate(R.layout.dashboard_menu, parent, false)
         return DashBoardViewHolder(itemView)
     }
 
@@ -35,15 +39,20 @@ class ChartAdapter() : RecyclerView.Adapter<ChartAdapter.DashBoardViewHolder>(){
         return dashBoardList.size
     }
 
-    inner class DashBoardViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
-        val dashBoardName : TextView = itemView.findViewById(R.id.dasboardName)
-        val dashBoardDescription : TextView = itemView.findViewById(R.id.descriptionView)
-        val dashBoardFavourite : ImageView = itemView.findViewById(R.id.starView)
+    inner class DashBoardViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val dashBoardName: TextView = itemView.findViewById(R.id.dasboardName)
+        val dashBoardDescription: TextView = itemView.findViewById(R.id.descriptionView)
+        val dashBoardFavourite: ImageView = itemView.findViewById(R.id.starView)
 
         init {
-            dashBoardFavourite.setOnClickListener{
-                val item = dashBoardList.getOrNull(bindingAdapterPosition)?: return@setOnClickListener
-                dashBoardList = dashBoardList.toMutableList().apply{ set(bindingAdapterPosition,item.copy(isFav = !item.isFav)) }
+            itemView.setOnClickListener {
+                onItemClicked.invoke()
+            }
+            dashBoardFavourite.setOnClickListener {
+                val item =
+                    dashBoardList.getOrNull(bindingAdapterPosition) ?: return@setOnClickListener
+                dashBoardList = dashBoardList.toMutableList()
+                    .apply { set(bindingAdapterPosition, item.copy(isFav = !item.isFav)) }
                 notifyItemChanged(bindingAdapterPosition)
             }
         }

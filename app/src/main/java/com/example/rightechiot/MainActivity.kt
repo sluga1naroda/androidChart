@@ -59,10 +59,10 @@ class MainActivity : FragmentActivity() {
 
         if(authService.isAuth) {
             showHideNavView(navView)
-            router.newRootScreen(Screens.dashboards())
+            router.newRootScreen(Screens.chooseServer())
         } else {
             showHideNavView(navView)
-            router.newRootScreen(Screens.dashboard())
+            router.newRootScreen(Screens.login())
         }
         setContentView(binding.root)
     }
